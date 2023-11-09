@@ -120,7 +120,6 @@ export function useThread({
   }
 
   const handleOperation = async (operation, successCallback?: (result) => void) => {
-    setLoading(true)
     try {
       const result = await operation()
 
