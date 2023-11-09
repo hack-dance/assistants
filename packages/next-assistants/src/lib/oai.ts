@@ -259,7 +259,7 @@ export function createAssistantRoutes({ debug = false }: { debug?: boolean } = {
    */
   const extractArgs = async (req, context, object) => {
     const { params = [], assistantId } = context?.params || {}
-    const queryParams = Object.fromEntries(new URL(req.url).searchParams.entries())
+    const queryParams = Object.fromEntries(req?.nextUrl?.searchParams?.entries())
 
     return {
       assistantId: assistantId,
