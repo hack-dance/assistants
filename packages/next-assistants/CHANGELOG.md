@@ -1,5 +1,11 @@
 # next-assistants
 
+## 0.0.7
+
+### Patch Changes
+
+- [`3cc99e8`](https://github.com/hack-dance/assistants/commit/3cc99e86196a4aee071e549caa4c552e6eb3f060) Thanks [@roodboi](https://github.com/roodboi)! - Make sure we set loading properly and dont unset early + expose thread manager in exports
+
 ## 0.0.6
 
 ### Patch Changes
