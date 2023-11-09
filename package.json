@@ -20,7 +20,7 @@
     "typecheck": "tsc --noEmit",
     "changeset": "changeset",
     "version-packages": "changeset version",
-    "publish-packages": "turbo run build --filter='@hackdance/*' && changeset publish"
+    "publish-packages": "turbo run build --filter='next-assistants' && changeset publish"
   },
   "devDependencies": {
     "@changesets/changelog-github": "^0.4.8",
