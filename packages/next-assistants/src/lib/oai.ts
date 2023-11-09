@@ -1,4 +1,3 @@
-import { NextResponse } from "next/server"
 import OpenAI from "openai"
 import { ThreadCreateParams, Threads } from "openai/resources/beta/threads/threads"
 
@@ -278,7 +277,15 @@ export function createAssistantRoutes({ debug = false }: { debug?: boolean } = {
     const handler = getRouteHandler(object, action, req.method)
 
     if (!handler) {
-      return NextResponse.json({ error: "Not Found" }, { status: 404 })
+      return new Response(
+        JSON.stringify({
+          error: "Not found"
+        }),
+        {
+          headers: { "Content-Type": "application/json" },
+          status: 404
+        }
+      )
     }
 
     try {
@@ -288,11 +295,21 @@ export function createAssistantRoutes({ debug = false }: { debug?: boolean } = {
 
       const result = await handler(args)
       debug && console.log("Request successful:", { object, action, method: req.method })
-      return NextResponse.json(result, { status: 200 })
+      return new Response(
+        JSON.stringify({
+          result
+        }),
+        { status: 200, headers: { "Content-Type": "application/json" } }
+      )
     } catch (e) {
       debug &&
         console.error("Error handling request:", e.message, { object, action, method: req.method })
-      return NextResponse.json({ error: e.message }, { status: 500 })
+      return new Response(
+        JSON.stringify({
+          error: e.message
+        }),
+        { status: 500, headers: { "Content-Type": "application/json" } }
+      )
     }
   }
 }
