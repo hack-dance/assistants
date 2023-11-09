@@ -127,9 +127,8 @@ export function useThread({
       return result
     } catch (e) {
       console.error("Operation error:", e)
-      setError(e)
-    } finally {
       setLoading(false)
+      setError(e)
     }
   }
 
@@ -139,6 +138,7 @@ export function useThread({
         if (!threadManager) {
           throw new Error("Thread manager not initialized")
         }
+        setLoading(true)
 
         return threadManager.sendMessage(content, "The user is a 4 year old girl named Sophia...")
       })
@@ -153,6 +153,7 @@ export function useThread({
           throw new Error("Thread manager not initialized")
         }
 
+        setLoading(true)
         return threadManager.startRun(runArgs)
       })
     },
