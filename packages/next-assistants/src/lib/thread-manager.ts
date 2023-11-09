@@ -216,7 +216,7 @@ export class ThreadManager {
   async checkForActiveRun() {
     if (!this.threadId) throw new Error("Thread ID not provided")
     const response = await fetch(
-      `/api/ai/assistants/${this.assistantId}/threads/${this.threadId}/runs/latest`
+      `/api/ai/assistants/${this.assistantId}/threads/${this.threadId}/runs/-/latest`
     )
 
     if (!response.ok) throw new Error("Failed to retrieve run")

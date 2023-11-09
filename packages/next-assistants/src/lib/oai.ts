@@ -1,3 +1,5 @@
+"use client"
+
 import OpenAI from "openai"
 import { ThreadCreateParams, Threads } from "openai/resources/beta/threads/threads"
 
