@@ -22,6 +22,7 @@ yarn add next-assistants
 pnpm add next-assistants
 ```
 
+
 ## Server-Side Setup
 
 ### Route Handlers
