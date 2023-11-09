@@ -1,5 +1,11 @@
 # next-assistants
 
+## 0.0.4
+
+### Patch Changes
+
+- [`ec07027`](https://github.com/hack-dance/assistants/commit/ec07027d7059590cf5cb1910abbcb41fd7a549d3) Thanks [@roodboi](https://github.com/roodboi)! - Dont use NextResponse
+
 ## 0.0.3
 
 ### Patch Changes
