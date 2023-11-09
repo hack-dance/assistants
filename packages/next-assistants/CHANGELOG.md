@@ -1,5 +1,13 @@
 # next-assistants
 
+## 0.0.8
+
+### Patch Changes
+
+- [`872ed04`](https://github.com/hack-dance/assistants/commit/872ed04c20244e8c9ab4ea6cb181236a698cd915) Thanks [@roodboi](https://github.com/roodboi)! - Check for any active running runs
+
+- [`6490ad7`](https://github.com/hack-dance/assistants/commit/6490ad7c7b80cd11743e3f9a88e093e9243c9975) Thanks [@roodboi](https://github.com/roodboi)! - dont set loading on all operations
+
 ## 0.0.7
 
 ### Patch Changes
