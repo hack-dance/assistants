@@ -1,5 +1,11 @@
 # next-assistants
 
+## 0.0.9
+
+### Patch Changes
+
+- [`3efc846`](https://github.com/hack-dance/assistants/commit/3efc8465ef3468512a9669b14841101a21fe2817) Thanks [@roodboi](https://github.com/roodboi)! - Fixing url for latest run
+
 ## 0.0.8
 
 ### Patch Changes
