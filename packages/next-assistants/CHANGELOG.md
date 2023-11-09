@@ -1,5 +1,11 @@
 # next-assistants
 
+## 0.0.5
+
+### Patch Changes
+
+- [`7b29d59`](https://github.com/hack-dance/assistants/commit/7b29d59bb8c4ce727b3256c96225bc08426fe038) Thanks [@roodboi](https://github.com/roodboi)! - Dont rename response to result :)
+
 ## 0.0.4
 
 ### Patch Changes
