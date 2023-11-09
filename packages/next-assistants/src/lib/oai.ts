@@ -95,6 +95,19 @@ export async function handleStartRun({
 }
 
 /**
+ * Retrieves the most recent run in a thread.
+ * @param threadId - The unique identifier of the thread.
+ * @returns The run object.
+ */
+export async function getMostRecentRun({ threadId }: { threadId: string }) {
+  const runs = await openai.beta.threads.runs.list(threadId, {
+    limit: 1
+  })
+
+  return runs
+}
+
+/**
  * Checks the status of a specific run in a thread.
  * @param threadId - The unique identifier of the thread.
  * @param runId - The unique identifier of the run.
@@ -123,7 +136,6 @@ export async function processToolActions({
   runId: string
   params: { results: Record<string, string> }
 }) {
-  console.log(params)
   await openai.beta.threads.runs.submitToolOutputs(threadId, runId, {
     tool_outputs: Object.entries(params.results).map(([id, response]) => ({
       tool_call_id: id,
@@ -207,7 +219,8 @@ const routeHandlers = {
   run: {
     "_": { POST: handleStartRun },
     "status": { GET: checkRunStatus },
-    "process-fns": { POST: processToolActions }
+    "process-fns": { POST: processToolActions },
+    "latest": { GET: getMostRecentRun }
   },
   file: {
     _: { POST: uploadFile, GET: getFile }

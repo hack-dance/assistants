@@ -69,13 +69,7 @@ export class ThreadManager {
     this.onMessagesUpdated = onMessagesUpdated ?? (() => {})
     this.onRunStatusChanged = onRunStatusChanged ?? (() => {})
     this.onInitialized = onInitialized ?? (() => {})
-
     this.functions = functions
-
-    if (this.threadId) {
-      this.getThread()
-      this.getMessages()
-    }
 
     this.init()
   }
@@ -83,6 +77,12 @@ export class ThreadManager {
   private async init() {
     await this.getAssistant()
     await this.checkAssistantFunctions()
+
+    if (this.threadId) {
+      await this.getThread()
+      await this.getMessages()
+      await this.checkForActiveRun()
+    }
 
     this.initialized = true
     this.onInitialized()
@@ -211,6 +211,28 @@ export class ThreadManager {
     await this.startRun({})
 
     return message
+  }
+
+  async checkForActiveRun() {
+    if (!this.threadId) throw new Error("Thread ID not provided")
+    const response = await fetch(
+      `/api/ai/assistants/${this.assistantId}/threads/${this.threadId}/runs/latest`
+    )
+
+    if (!response.ok) throw new Error("Failed to retrieve run")
+    const runs = await response.json()
+    const run = runs?.data?.[0] ?? null
+
+    if (
+      run &&
+      !["completed", "failed", "cancelled", "expired", "cancelling"].includes(run?.status)
+    ) {
+      this.activeRunId = run?.id
+      this.onRunStatusChanged(run?.status)
+      this.pollRunStatus()
+    }
+
+    return run
   }
 
   /**
