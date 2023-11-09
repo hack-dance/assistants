@@ -1,11 +1,11 @@
 export type SiteConfig = typeof siteConfig
 
 export const siteConfig = {
-  name: "hack-dance/agents",
-  url: "https://oss.hack.dance",
+  name: "hack-dance/assistants",
+  url: "https://assistants.hack.dance",
   description: "",
   og: {
-    title: "Hack Dance Agents",
+    title: "Hack Dance",
     description: ""
   },
   links: {
@@ -14,7 +14,7 @@ export const siteConfig = {
       text: "@dimitrikennedy"
     },
     github: {
-      url: "https://github.com/hack-dance/agents",
+      url: "https://github.com/hack-dance/assistants",
       text: "Github"
     }
   },

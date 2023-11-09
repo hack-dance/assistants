@@ -17,7 +17,7 @@ export function DocHeader({ packageConfig }) {
             <h1 className="font-blunt text-sm overflow-hidden whitespace-nowrap">
               <Link href="/" className="flex items-center gap-2">
                 <span className="text-3xl leading-none tracking-tight">×</span>
-                hack-dance/{packageConfig?.title ?? "oss"}
+                hack-dance - {packageConfig?.title ?? "oss"}
               </Link>
             </h1>
 
