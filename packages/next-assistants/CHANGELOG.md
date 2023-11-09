@@ -1,5 +1,11 @@
 # next-assistants
 
+## 0.0.6
+
+### Patch Changes
+
+- [`ef422e1`](https://github.com/hack-dance/assistants/commit/ef422e1b68c8d5fa7349eaaa800877d305d4d089) Thanks [@roodboi](https://github.com/roodboi)! - Update how we get query params
+
 ## 0.0.5
 
 ### Patch Changes
