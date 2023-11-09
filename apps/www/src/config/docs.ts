@@ -1,56 +1,14 @@
 export const docs = {
-  hooks: {
-    title: "hooks",
+  assistants: {
+    title: "assistants",
     sections: [
       {
         title: "Getting started",
         pages: [
           {
-            title: "Install",
-            slug: "hooks",
-            id: "hooks"
-          }
-        ]
-      },
-      {
-        title: "useStream",
-        pages: []
-      },
-      {
-        title: "useJsonStream",
-        pages: []
-      },
-      {
-        title: "useChatStream",
-        pages: []
-      }
-    ]
-  },
-  agents: {
-    title: "agents",
-    sections: [
-      {
-        title: "Getting started",
-        pages: [
-          {
-            title: "install",
-            slug: "agents",
-            id: "agents"
-          }
-        ]
-      }
-    ]
-  },
-  ["schema-stream"]: {
-    title: "schema-stream",
-    sections: [
-      {
-        title: "Getting started",
-        pages: [
-          {
-            title: "install",
-            slug: "schema-stream",
-            id: "schema-stream"
+            title: "Next Assistants",
+            slug: "assistants",
+            id: "assistants"
           }
         ]
       }
