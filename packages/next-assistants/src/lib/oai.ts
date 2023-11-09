@@ -22,6 +22,7 @@ export async function getAssistantFunctions({ assistantId }: { assistantId: stri
  */
 export async function getAssistant({ assistantId }: { assistantId: string }) {
   const assistant = await openai.beta.assistants.retrieve(assistantId)
+
   return assistant
 }
 
@@ -297,7 +298,7 @@ export function createAssistantRoutes({ debug = false }: { debug?: boolean } = {
       debug && console.log("Request successful:", { object, action, method: req.method })
       return new Response(
         JSON.stringify({
-          result
+          ...result
         }),
         { status: 200, headers: { "Content-Type": "application/json" } }
       )

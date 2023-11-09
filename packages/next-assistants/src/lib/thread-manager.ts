@@ -120,6 +120,7 @@ export class ThreadManager {
     if (!response.ok) throw new Error("Failed to retrieve assistant")
 
     const data = await response.json()
+
     this.assistant = data
 
     return data
@@ -308,7 +309,7 @@ export class ThreadManager {
 
   async checkAssistantFunctions() {
     try {
-      this.assistant?.tools.forEach(tool => {
+      this.assistant?.tools?.forEach(tool => {
         if (tool.type === "function") {
           const hasFunction = this.functions?.[tool.function.name]
 
