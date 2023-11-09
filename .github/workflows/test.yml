@@ -22,11 +22,10 @@ jobs:
         with:
           node-version: 18.16.0
 
-      - name: install pnpm
-        run: npm i pnpm@latest -g
-
-      - name: Setup pnpm config
-        run: pnpm config set store-dir $PNPM_CACHE_FOLDER
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8.10.0
 
       - name: Install Dependencies
         run: pnpm i
