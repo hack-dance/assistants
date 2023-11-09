@@ -9,6 +9,6 @@ export default defineConfig(options => {
     minify: true,
     target: "es2020",
     format: ["cjs", "esm"],
-    external: ["openai", "react", "react-dom", "next"]
+    external: ["openai", "react", "react-dom", "next", "next/server"]
   }
 })
