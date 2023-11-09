@@ -1,5 +1,11 @@
 # next-assistants
 
+## 0.0.3
+
+### Patch Changes
+
+- [`f74d269`](https://github.com/hack-dance/assistants/commit/f74d2692ff2db0f327ca709f74e6b6b48f0b3b46) Thanks [@roodboi](https://github.com/roodboi)! - Add next/server as external
+
 ## 0.0.2
 
 ### Patch Changes
