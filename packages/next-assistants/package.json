@@ -1,0 +1,46 @@
+{
+  "name": "next-assistants",
+  "version": "0.0.1",
+  "author": "Dimitri Kennedy <dimitri@sick.email> (https://hack.dance)",
+  "homepage": "https://assistants.hack.dance",
+  "repository": {
+    "directory": "packages/next-assistants",
+    "type": "git",
+    "url": "https://github.com/hack-dance/assistants.git"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "exports": {
+    "./server": {
+      "import": "./dist/server/index.mjs",
+      "require": "./dist/server/index.js",
+      "types": "./dist/server/index.d.ts"
+    },
+    "./client": {
+      "import": "./dist/client/index.mjs",
+      "require": "./dist/client/index.js",
+      "types": "./dist/client/index.d.ts"
+    }
+  },
+  "sideEffects": false,
+  "license": "MIT",
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "lint": "TIMING=1 eslint src/**/*.ts* --fix",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
+  },
+  "devDependencies": {
+    "next": "14.0.1",
+    "openai": "^4.16.2",
+    "tsconfig": "workspace:*",
+    "tsup": "^6.4.0"
+  },
+  "peerDependencies": {
+    "next": ">=13.0.0",
+    "openai": ">=4.16.2",
+    "react": ">=18.2.0"
+  },
+  "dependencies": {}
+}
