@@ -108,6 +108,10 @@ export function useThread({
           setLoading(false)
         }
 
+        if (["in_progress", "queued", "requires_action"].includes(status)) {
+          setLoading(true)
+        }
+
         if (!equals(runStatus, status)) {
           setRunStatus(status)
         }
