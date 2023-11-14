@@ -60,12 +60,18 @@ export interface UseThreadResult {
    * Boolean indicating whether the thread is currently initializing.
    */
   initializing: boolean
+  /**
+   * The thread manager instance.
+   *
+   * @remarks
+   * This is exposed for advanced use cases. You should not need to use this directly.
+   */
+  threadManager: ThreadManager | null
 }
 
 /**
  * Custom React hook to manage conversation threads with an OpenAI assistant.
  *
- * @param {object} params - The parameters for initializing the thread.
  * @param {string} params.assistantId - The ID of the AI assistant.
  * @param {string} [params.threadId] - Optional ID of an existing thread.
  * @param {AssistantFunctions} [params.functions] - Optional custom functions for processing assistant responses.
@@ -74,11 +80,13 @@ export interface UseThreadResult {
 export function useThread({
   assistantId,
   threadId,
-  functions
+  functions,
+  pollInterval
 }: {
   assistantId: string
   threadId?: string
   functions?: AssistantFunctions
+  pollInterval?: number
 }): UseThreadResult {
   const [messages, setMessages] = useState([])
   const [runStatus, setRunStatus] = useState(null)
@@ -93,6 +101,7 @@ export function useThread({
   if (!threadManager) {
     threadManagerRef.current = new ThreadManager({
       assistantId,
+      pollInterval,
       threadId,
       functions,
       onInitialized: () => {
@@ -199,6 +208,7 @@ export function useThread({
     error,
     loading,
     runStatus,
-    initializing
+    initializing,
+    threadManager
   }
 }

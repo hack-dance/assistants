@@ -11,7 +11,10 @@ export type ThreadArgs = {
   onMessagesUpdated?: EventCallback
   onRunStatusChanged?: EventCallback
   onInitialized?: EventCallback
+  pollInterval?: number
 }
+
+export const DEFAULT_POLL_INTERVAL = 2000
 
 /**
  * The `ThreadManager` class is designed to manage and interact with a specific thread and
@@ -61,10 +64,12 @@ export class ThreadManager {
     functions = {},
     onMessagesUpdated,
     onRunStatusChanged,
-    onInitialized
+    onInitialized,
+    pollInterval
   }: ThreadArgs) {
     this.assistantId = assistantId
     this.threadId = threadId
+    this.pollInterval = pollInterval ?? DEFAULT_POLL_INTERVAL
 
     this.onMessagesUpdated = onMessagesUpdated ?? (() => {})
     this.onRunStatusChanged = onRunStatusChanged ?? (() => {})
