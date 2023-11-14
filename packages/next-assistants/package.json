@@ -43,6 +43,7 @@
     "react": ">=18.2.0"
   },
   "dependencies": {
+    "eventemitter3": "^5.0.1",
     "ramda": "^0.29.0"
   }
 }

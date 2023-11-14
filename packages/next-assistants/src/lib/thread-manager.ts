@@ -1,8 +1,22 @@
+import { EventEmitter } from "eventemitter3"
 import { Assistant } from "openai/resources/beta/assistants/assistants"
 import { ThreadCreateParams, Threads } from "openai/resources/beta/threads/threads"
 
 export type AssistantFunctions = Record<string, (args) => Promise<string>>
 export type EventCallback = (...data) => void
+
+type ThreadEventMap = {
+  messagesUpdated: (messages: Threads.ThreadMessage[]) => void
+  runStatusChanged: (status: string) => void
+  initialized: () => void
+  error: (error: Error) => void
+  fileUploaded: (file: File) => void
+  fileUploadFailed: (error: Error) => void
+  fileUploadProgress: (progress: number) => void
+  fileUploadComplete: (file: File) => void
+  threadCreated: (thread: Threads.Thread) => void
+  functionExecuted: (result: unknown) => void
+}
 
 export type ThreadArgs = {
   assistantId: string
@@ -54,6 +68,8 @@ export class ThreadManager {
   private onRunStatusChanged: EventCallback
   private onInitialized: EventCallback
 
+  private eventEmitter: EventEmitter = new EventEmitter()
+
   /**
    * Constructs a new instance of ThreadManager.
    * @param {ThreadArgs} param0 - The thread arguments.
@@ -91,6 +107,17 @@ export class ThreadManager {
 
     this.initialized = true
     this.onInitialized()
+
+    this.eventEmitter.emit("initialized")
+  }
+
+  /**
+   * Adds an event listener to the thread manager.
+   * @param event - The event to listen for.
+   * @param listener - The callback to execute when the event is triggered.
+   */
+  on<E extends keyof ThreadEventMap>(event: E, listener: ThreadEventMap[E]) {
+    this.eventEmitter.on(event, listener)
   }
 
   /**
@@ -110,8 +137,11 @@ export class ThreadManager {
       this.thread = await response.json()
       this.threadId = this.thread?.id
 
+      this.eventEmitter.emit("threadCreated", this.thread)
+
       return this.thread
     } catch (e) {
+      this.eventEmitter.emit("error", e)
       console.error("Error creating thread:", e)
       throw e
     }
@@ -164,17 +194,28 @@ export class ThreadManager {
   async uploadFile(file: File) {
     if (!file) throw new Error("no File provided")
 
-    const data = new FormData()
-    data.set("file", file)
+    try {
+      const data = new FormData()
+      data.set("file", file)
 
-    const response = await fetch(`/api/ai/assistants/${this.assistantId}/files/_`, {
-      method: "POST",
-      body: data
-    })
+      const response = await fetch(`/api/ai/assistants/${this.assistantId}/files/_`, {
+        method: "POST",
+        body: data
+      })
 
-    if (!response.ok) throw new Error("Failed to upload file")
+      if (!response.ok) throw new Error("Failed to upload file")
 
-    return await response.json()
+      const uploadedFile = await response.json()
+      this.eventEmitter.emit("fileUploaded", uploadedFile)
+
+      return uploadedFile
+    } catch (e) {
+      console.error("Failed to upload file:", e)
+
+      this.eventEmitter.emit("fileUploadFailed", e)
+
+      throw e
+    }
   }
 
   /**
@@ -189,6 +230,8 @@ export class ThreadManager {
     const data = await response.json()
     this.messages = data
     this.onMessagesUpdated(data)
+
+    this.eventEmitter.emit("messagesUpdated", this.messages)
 
     return data
   }
@@ -234,6 +277,8 @@ export class ThreadManager {
     ) {
       this.activeRunId = run?.id
       this.onRunStatusChanged(run?.status)
+      this.eventEmitter.emit("runStatusChanged", run?.status)
+
       this.pollRunStatus()
     }
 
@@ -261,6 +306,7 @@ export class ThreadManager {
     const run = await response.json()
 
     this.onRunStatusChanged(run.status)
+    this.eventEmitter.emit("runStatusChanged", run.status)
 
     this.activeRunId = run.id
     this.pollRunStatus()
@@ -310,6 +356,11 @@ export class ThreadManager {
             )
 
             results[action.id] = fnResponse
+
+            this.eventEmitter.emit("functionExecuted", {
+              actionId: action.id,
+              response: fnResponse
+            })
           } catch (e) {
             results[action.id] = null
             console.error(e, "local function invocation error", action.function.name)
