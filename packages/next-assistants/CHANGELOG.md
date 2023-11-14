@@ -1,5 +1,11 @@
 # next-assistants
 
+## 0.0.11
+
+### Patch Changes
+
+- [`f4c4ebf`](https://github.com/hack-dance/assistants/commit/f4c4ebf0f9d604f719cc82dd8c4243986a41a038) Thanks [@roodboi](https://github.com/roodboi)! - Add event emitters
+
 ## 0.0.10
 
 ### Patch Changes
