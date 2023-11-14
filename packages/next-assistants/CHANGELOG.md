@@ -1,5 +1,11 @@
 # next-assistants
 
+## 0.0.10
+
+### Patch Changes
+
+- [`89092f1`](https://github.com/hack-dance/assistants/commit/89092f1fb74813463a05c8fd0f35ffa25a4d4861) Thanks [@roodboi](https://github.com/roodboi)! - Expose the thread manager and allow for pollInterval prop
+
 ## 0.0.9
 
 ### Patch Changes
