@@ -32,7 +32,7 @@
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "devDependencies": {
-    "next": "14.0.1",
+    "next": "15.5.21",
     "openai": "^4.16.2",
     "tsconfig": "workspace:*",
     "tsup": "^6.4.0"
